@@ -6,12 +6,13 @@ LABEL supprort="support@example.com"
 
 RUN yum update -y 
 RUN yum install httpd -y
+RUN systemctl start httpd
 RUN mkdir /data
 RUN useradd Devops
 
 COPY index.html /var/www/html
 
-ENTRYPOINT [ "apachectl", "-DFOREGROUND" ]
+CMD [ "/bin/bash" ]
 
 EXPOSE 80
 
@@ -21,7 +22,8 @@ ENV $ {Hellow}
 
 WORKDIR /data
 
-RUN echo "Welcome to Node.js" > file
+RUN echo "Welcome to Node.js" > file.html
+RUN cp file.html /var/www/html
 
 VOLUME /data
 
