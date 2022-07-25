@@ -1,18 +1,16 @@
-FROM centos:7
+FROM httpd:2.4
 
 LABEL author="YASWANTH"
 LABEL date="2022-07-24"
 LABEL supprort="support@example.com"
 
-RUN yum update -y 
-RUN yum install httpd -y
-RUN systemctl start httpd
+
 RUN mkdir /data
 RUN useradd Devops
 
-COPY index.html /var/www/html
+COPY index.html /usr/local/apache2/conf/
 
-CMD [ "/bin/bash" ]
+ENTRYPOINT [ "apachectl", "-DFOREGROUND" ]
 
 EXPOSE 80
 
@@ -23,7 +21,7 @@ ENV $ {Hellow}
 WORKDIR /data
 
 RUN echo "Welcome to Node.js" > file.html
-RUN cp file.html /var/www/html
+RUN cp file.html /usr/local/apache2/conf/
 
 VOLUME /data
 
