@@ -1,28 +1,11 @@
-FROM httpd:2.4
+# Use an official Apache base image
+FROM httpd:latest
 
-LABEL author="YASWANTH"
-LABEL date="2022-07-24"
-LABEL supprort="support@example.com"
+# Set the working directory to the Apache document root
+WORKDIR /usr/local/apache2/htdocs
 
+# Copy the local index.html file into the container at /usr/local/apache2/htdocs/
+COPY index.html .
 
-RUN mkdir /data
-RUN useradd Devops
-
-COPY index.html /usr/local/apache2/conf/
-
-ENTRYPOINT [ "apachectl", "-DFOREGROUND" ]
-
+# Expose port 80 for the Apache web server
 EXPOSE 80
-
-ARG Hellow=We_are_mergers_of_different_envs
-
-ENV $ {Hellow}
-
-WORKDIR /data
-
-RUN echo "Welcome to Node.js" > file.html
-RUN cp file.html /usr/local/apache2/conf/
-
-VOLUME /data
-
-USER Devops
